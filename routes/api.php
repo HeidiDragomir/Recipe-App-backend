@@ -17,20 +17,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Public routes
-/* Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']); */
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 Route::get('/recipes', [RecipeController::class, 'getAllRecipes']);
 Route::get('/recipes/{id}', [RecipeController::class, 'getRecipe']);
 // Route::get('/recipes/search/{name}', [RecipeController::class, 'search']);
 
 Route::post('/recipes', [RecipeController::class, 'createRecipe']);
 // Protected routes
-/* Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/recipes', [RecipeController::class, 'createRecipe']);
     Route::put('/recipes/{id}', [RecipeController::class, 'updateRecipe']);
     Route::delete('/recipes/{id}', [RecipeController::class, 'deleteRecipe']);
     Route::post('/logout', [AuthController::class, 'logout']);
-}); */
+});
 
 
 
