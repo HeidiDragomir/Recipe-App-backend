@@ -43,7 +43,7 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function getStudent($id)
+    public function getRecipe($id)
     {
         if (Recipe::where('id', $id)->exists()) {
             $recipe = Recipe::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
