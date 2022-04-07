@@ -9,13 +9,8 @@ class Recipe extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'ingredients'
-    ];
-
-    public function recipelists()
+    public function recipelist()
     {
-        return $this->belongsToMany(RecipeList::class);
+        return $this->oneToMany(RecipeList::class);
     }
 }
