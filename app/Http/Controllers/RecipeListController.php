@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Recipe;
 use App\Models\RecipeList;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RecipeListController extends Controller
@@ -13,9 +14,10 @@ class RecipeListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getAllList()
+    public function getAllLists(request $request)
     {
-        $list = RecipeList::get()->toJson(JSON_PRETTY_PRINT);
+        $id = $request->user()->id;
+        $list = RecipeList::where('user_id', $id)->get()->toJson(JSON_PRETTY_PRINT);
         return response($list, 200);
     }
 
@@ -26,7 +28,7 @@ class RecipeListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function createList(request $request)
+    public function createList(Request $request)
     {
         $list = new RecipeList();
         $list->title = $request->title;
@@ -49,10 +51,10 @@ class RecipeListController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getList($id)
+    public function getList($id, Request $request)
     {
         if (RecipeList::where('id', $id)->exists()) {
-            $list = RecipeList::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
+            $list = RecipeList::where('id', $id)->where('user_id', $request->user()->id)->get()->toJson(JSON_PRETTY_PRINT);
             return response($list, 200);
         } else {
             return response()->json([
@@ -71,9 +73,10 @@ class RecipeListController extends Controller
 
     public function updateList(Request $request, $id)
     {
-        if (RecipeList::where('id', $id)->exists()) {
+        if (RecipeList::where('user_id', $request->user()->id)->where('id', $id)->exists()) {
             $list = RecipeList::find($id);
             $list->title = is_null($request->title) ? $list->title : $request->title;
+            
             $list->save();
 
             return response()->json([
@@ -93,9 +96,9 @@ class RecipeListController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function deleteList($id)
+    public function deleteList(Request $request, $id)
     {
-        if (RecipeList::where('id', $id)->exists()) {
+        if (RecipeList::where('user_id', $request->user()->id)->where('id', $id)->exists()) {
             $list = RecipeList::find($id);
             $list->delete();
 
@@ -108,6 +111,4 @@ class RecipeListController extends Controller
             ], 404);
         }
     }
-
-    
 }
