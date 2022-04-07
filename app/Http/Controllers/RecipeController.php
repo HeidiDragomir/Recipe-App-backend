@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recipe;
+use App\Models\RecipeList;
+use App\Models\User;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Input\Input;
 
 class RecipeController extends Controller
 {
@@ -12,11 +16,7 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getAllRecipes()
-    {
-        $recipes = Recipe::get()->toJson(JSON_PRETTY_PRINT);
-        return response($recipes, 200);
-    }
+
 
 
     /**
@@ -25,60 +25,25 @@ class RecipeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function createRecipe(request $request)
-    {
-        $recipe = new Recipe;
-        $recipe->title = $request->title;
-        $recipe->ingredients = $request->ingredients;
-        $recipe->save();
 
-        return response()->json([
-            "message" => "Recipe record has been created"
-        ], 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getRecipe($id)
+    public function addRecipe(Request $request)
     {
-        if (Recipe::where('id', $id)->exists()) {
-            $recipe = Recipe::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
-            return response($recipe, 200);
+
+        if (Recipe::where('recipeId', $request->recipeId)->where('recipe_list_id', $request->recipe_list_id)->exists()) {
+
+            return response()->json(['message' => 'Recipe already exist!'], 409);
         } else {
-            return response()->json([
-                "message" => "Recipe not found"
-            ], 404);
+            $attributes = request()->validate([
+                'recipeId' => 'required',
+                'title' => 'required',
+                'image' => 'required',
+                'recipe_list_id' => 'required',
+            ]);
+            Recipe::create($attributes);
+            return response()->json(['message' => 'Recipe added!'], 201);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updateStudent(Request $request, $id)
-    {
-        if (Recipe::where('id', $id)->exists()) {
-            $recipe = Recipe::find($id);
-            $recipe->title = is_null($request->title) ? $recipe->title : $request->title;
-            $recipe->ingredients = is_null($request->ingredients) ? $recipe->ingredients : $request->ingredients;
-            $recipe->save();
-
-            return response()->json([
-                "message" => "Recipe records updated successfully"
-            ], 200);
-        } else {
-            return response()->json([
-                "message" => "Recipe not found"
-            ], 404);
-        }
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -86,14 +51,14 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deleteStudent($id)
+    public function deleteRecipe($id)
     {
         if (Recipe::where('id', $id)->exists()) {
             $recipe = Recipe::find($id);
             $recipe->delete();
 
             return response()->json([
-                "message" => "Recipe records deleted"
+                "message" => "Recipe deleted"
             ], 202);
         } else {
             return response()->json([

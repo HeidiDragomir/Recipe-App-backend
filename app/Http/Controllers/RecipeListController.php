@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Recipe;
 use App\Models\RecipeList;
 use Illuminate\Http\Request;
 
@@ -107,4 +108,6 @@ class RecipeListController extends Controller
             ], 404);
         }
     }
+
+    
 }

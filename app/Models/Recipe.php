@@ -8,9 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Recipe extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+    protected $fillable = [
+        'recipe_list_id',
+        'recipeId',
+        'title',
+        'image'        
+    ];
 
     public function recipelist()
     {
-        return $this->oneToMany(RecipeList::class);
+        return $this->belongsToMany(RecipeList::class);
     }
 }
