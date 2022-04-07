@@ -21,13 +21,15 @@ use Illuminate\Support\Facades\Route;
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/recipe', [RecipeController::class, 'getAllrecipes']);
-Route::get('/recipes/{id}', [RecipeController::class, 'getRecipe']);
+
+
 // Route::get('/recipes/search/{name}', [RecipeController::class, 'search']);
 
 
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    //LISTS
 
     Route::get('/recipelist', [RecipeListController::class, 'getAllLists']);
 
@@ -38,6 +40,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/recipelist/{id}', [RecipeListController::class, 'updateList']);
 
     Route::delete('/recipelist/{id}', [RecipeListController::class, 'deleteList']);
+
+    //RECIPES
+
+    Route::post('/recipe', [RecipeController::class, 'addRecipe']);
+
+    Route::delete('/recipe/{id}', [RecipeController::class, 'deleteRecipe']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
