@@ -9,7 +9,11 @@ class RecipeList extends Model
 {
     use HasFactory;
 
-    public function recipes()
+    protected $fillable = [
+        'user_id',
+        'title'
+    ];
+    public function recipe()
     {
         return $this->hasMany(Recipe::class)->withTimestamps();
     }
