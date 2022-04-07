@@ -15,11 +15,12 @@ class CreateRecipesTable extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recipe_lists_id');
+            $table->foreignId('recipe_list_id');
             $table->string('title');
+            $table->string('recipeId');
             $table->string('image');
-            $table->string('url');
             $table->timestamps();
+            $table->timestamp('published_at')->nullable();
         });
     }
 
