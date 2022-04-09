@@ -17,7 +17,12 @@ class RecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
+    public function getAllRecipes(request $request)
+    {
+        $id = $request->user()->id;
+        $list = Recipe::where('user_id', $id)->get()->toJson(JSON_PRETTY_PRINT); ////am sters RecipeList
+        return response($list, 200);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -29,16 +34,19 @@ class RecipeController extends Controller
     public function addRecipe(Request $request)
     {
 
-        if (Recipe::where('recipeId', $request->recipeId)->where('recipe_list_id', $request->recipe_list_id)->exists()) {
+        if (Recipe::where('recipeId', $request->recipeId)->where('user_id', $request->user()->id)->exists()) {
 
             return response()->json(['message' => 'Recipe already exist!'], 409);
         } else {
             $attributes = request()->validate([
+                
                 'recipeId' => 'required',
                 'title' => 'required',
                 'image' => 'required',
-                'recipe_list_id' => 'required',
+                // 'recipe_list_id' => 'required',
             ]);
+            $attributes['user_id'] = $request->user()->id;
+
             Recipe::create($attributes);
             return response()->json(['message' => 'Recipe added!'], 201);
         }
