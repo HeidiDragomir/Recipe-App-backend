@@ -63,6 +63,23 @@ class RecipeListController extends Controller
         }
     }
 
+    public function storeList(Request $request)
+    {
+
+
+        $attributes = request()->validate([
+            'title' => 'required']);
+       
+
+        $attributes['user_id'] = $request->user()->id;
+
+        RecipeList::create($attributes);
+
+        return response()->json([
+            "message" => "List Added found"
+        ], 200);
+    }
+
     /**
      * Update the specified resource in storage.
      *
