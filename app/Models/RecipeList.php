@@ -21,6 +21,6 @@ class RecipeList extends Model
 
     public function recipe()
     {
-        return $this->belongsTo(Recipe::class);
+        return $this->belongsToMany(Movie::class)->withTimestamps();;
     }
 }
