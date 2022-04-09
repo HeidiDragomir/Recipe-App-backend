@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecipeListController;
+use App\Http\Controllers\RlistController;
 use App\Models\RecipeList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/recipelist/{id}', [RecipeListController::class, 'getList']);
 
+    Route::post("/recipelist/add", [RecipeListController::class, "store",]);
+
     Route::post('/recipelist', [RecipeListController::class, 'createList']);
 
     Route::put('/recipelist/{id}', [RecipeListController::class, 'updateList']);
@@ -43,11 +46,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //RECIPES
 
+    Route::get('/recipes', [RecipeController::class, 'getAllRecipes']);
+
     Route::post('/recipe', [RecipeController::class, 'addRecipe']);
 
     Route::delete('/recipe/{id}', [RecipeController::class, 'deleteRecipe']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    // List and Recipe connection
+
+    Route::post("/lists/add", [RlistController::class, "store"]);
+    Route::delete("/lists/delete", [RlistController::class, "destroy"]);
 });
 
 
