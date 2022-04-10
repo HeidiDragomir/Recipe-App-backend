@@ -63,7 +63,7 @@ class RecipeListController extends Controller
         }
     }
 
-    public function storeList(Request $request)
+    /* public function storeList(Request $request)
     {
 
 
@@ -78,7 +78,7 @@ class RecipeListController extends Controller
         return response()->json([
             "message" => "List Added found"
         ], 200);
-    }
+    } */
 
     /**
      * Update the specified resource in storage.

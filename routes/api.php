@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/recipelist/{id}', [RecipeListController::class, 'getList']);
 
-    Route::post("/recipelist/add", [RecipeListController::class, "store",]);
+    // Route::post("/recipelist/add", [RecipeListController::class, "storeList",]);
 
     Route::post('/recipelist', [RecipeListController::class, 'createList']);
 
@@ -56,8 +56,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // List and Recipe connection
 
-    Route::post("/lists/add", [RlistController::class, "store"]);
-    Route::delete("/lists/delete", [RlistController::class, "destroy"]);
+    Route::post("/mylist", [RlistController::class, "store"]);
+    Route::delete("/mylist/delete", [RlistController::class, "destroy"]);
 });
 
 

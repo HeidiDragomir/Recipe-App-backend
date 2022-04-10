@@ -14,8 +14,8 @@ class CreateRlistsTable extends Migration
     public function up()
     {
         Schema::create('rlists', function (Blueprint $table) {
-            $table->foreignId('recipe_id')->constrained()->onDelete('cascade');
-            $table->foreignId('recipe_list_id')->constrained()->onDelete('cascade');
+            $table->foreignId('recipe_id');
+            $table->foreignId('recipe_list_id');
             $table->timestamps();
         });
     }

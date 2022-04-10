@@ -17,7 +17,7 @@ class RecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getAllRecipes(request $request)
+    public function getAllRecipes(Request $request)
     {
         $id = $request->user()->id;
         $list = Recipe::where('user_id', $id)->get()->toJson(JSON_PRETTY_PRINT); ////am sters RecipeList
