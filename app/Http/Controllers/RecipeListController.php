@@ -32,6 +32,7 @@ class RecipeListController extends Controller
     {
         $list = new RecipeList();
         $list->title = $request->title;
+        $list->recipeTitle = $request->recipeTitle;
         $list->user_id = $request->user()->id;
         $list->save();
 
@@ -94,7 +95,7 @@ class RecipeListController extends Controller
             $list = RecipeList::find($id);
             $list->title = is_null($request->title) ? $list->title : $request->title;
             $list->recipeTitle = is_null($request->recipeTitle) ? $list->recipeTitle : $request->recipeTitle;
-            
+
             $list->save();
 
             return response()->json([
