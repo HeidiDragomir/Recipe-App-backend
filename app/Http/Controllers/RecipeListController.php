@@ -93,6 +93,7 @@ class RecipeListController extends Controller
         if (RecipeList::where('user_id', $request->user()->id)->where('id', $id)->exists()) {
             $list = RecipeList::find($id);
             $list->title = is_null($request->title) ? $list->title : $request->title;
+            $list->recipeTitle = is_null($request->recipeTitle) ? $list->recipeTitle : $request->recipeTitle;
             
             $list->save();
 

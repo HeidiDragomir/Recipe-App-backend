@@ -17,6 +17,7 @@ class CreateRecipeListsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->onDelete('cascade');
             $table->string('title');
+            $table->string('recipeTitle');
             $table->timestamps();
         });
     }
