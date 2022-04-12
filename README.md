@@ -6,5 +6,6 @@ Done in `Laravel`, deployed on [Heroku](https://recipes-app-be.herokuapp.com/), 
 <br/>
 
 ## RecipeAppFrontend
+<br/>
 
 [Live, deployed application can be found here!](https://recipe-app-fe13.netlify.app)
