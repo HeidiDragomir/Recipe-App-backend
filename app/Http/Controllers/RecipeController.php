@@ -20,7 +20,7 @@ class RecipeController extends Controller
     public function getAllRecipes(Request $request)
     {
         $id = $request->user()->id;
-        $list = Recipe::where('user_id', $id)->get()->toJson(JSON_PRETTY_PRINT); ////am sters RecipeList
+        $list = Recipe::where('user_id', $id)->get()->toJson(JSON_PRETTY_PRINT);
         return response($list, 200);
     }
 
@@ -39,11 +39,11 @@ class RecipeController extends Controller
             return response()->json(['message' => 'Recipe already exist!'], 409);
         } else {
             $attributes = request()->validate([
-                
+
                 'recipeId' => 'required',
                 'title' => 'required',
                 'image' => 'required',
-                // 'recipe_list_id' => 'required',
+
             ]);
             $attributes['user_id'] = $request->user()->id;
 

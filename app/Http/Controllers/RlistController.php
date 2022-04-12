@@ -34,9 +34,6 @@ class RlistController extends Controller
         }
     }
 
-
-    // NU MERGE
-
     public function destroy()
     {
 

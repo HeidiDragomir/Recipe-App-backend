@@ -16,7 +16,6 @@ class CreateRecipesTable extends Migration
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->onDelete('cascade');
-
             $table->string('title');
             $table->string('recipeId');
             $table->string('image');

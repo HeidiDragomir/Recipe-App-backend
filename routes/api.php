@@ -19,24 +19,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Public routes
+// Public routes //
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 
-// Route::get('/recipes/search/{name}', [RecipeController::class, 'search']);
+// Protected routes //
 
-
-// Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
-    //LISTS
+    // LISTS //
 
     Route::get('/recipelist', [RecipeListController::class, 'getAllLists']);
 
     Route::get('/recipelist/{id}', [RecipeListController::class, 'getList']);
-
-    // Route::post("/recipelist/add", [RecipeListController::class, "storeList",]);
 
     Route::post('/recipelist', [RecipeListController::class, 'createList']);
 
@@ -44,7 +41,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::delete('/recipelist/{id}', [RecipeListController::class, 'deleteList']);
 
-    //RECIPES
+    // RECIPES //
 
     Route::get('/recipes', [RecipeController::class, 'getAllRecipes']);
 
@@ -54,12 +51,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    // List and Recipe connection
+    // List and Recipe connection //
 
     Route::post("/mylist", [RlistController::class, "store"]);
     Route::delete("/mylist/delete", [RlistController::class, "destroy"]);
 });
-
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

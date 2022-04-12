@@ -14,6 +14,7 @@ class RecipeListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function getAllLists(request $request)
     {
         $id = $request->user()->id;
@@ -28,16 +29,13 @@ class RecipeListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function createList(Request $request)
     {
         $list = new RecipeList();
         $list->title = $request->title;
         $list->user_id = $request->user()->id;
         $list->save();
-
-        /* $attributes['title'] = $request->title;
-        $attributes['user_id'] = $request->user()->id;
-        RecipeList::create($attributes); */
 
         return response()->json([
             "message" => "List record has been created"
@@ -62,23 +60,6 @@ class RecipeListController extends Controller
             ], 404);
         }
     }
-
-    /* public function storeList(Request $request)
-    {
-
-
-        $attributes = request()->validate([
-            'title' => 'required']);
-       
-
-        $attributes['user_id'] = $request->user()->id;
-
-        RecipeList::create($attributes);
-
-        return response()->json([
-            "message" => "List Added found"
-        ], 200);
-    } */
 
     /**
      * Update the specified resource in storage.
